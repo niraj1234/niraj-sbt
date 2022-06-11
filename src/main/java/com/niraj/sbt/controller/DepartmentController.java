@@ -48,6 +48,21 @@ public class DepartmentController {
 	}
 	
 	
+	@GetMapping("/department/name/{name}")
+	public Department getDepartmentByName(@PathVariable("name") String name) {
+		return departmentService.getDepartmentByName(name);
+	}
+
 	
+	@GetMapping("/department/code/{code}")
+	public List<Department> getDepartmentByCode(@PathVariable("code") String code) {
+		return departmentService.getDepartmentByCode(code);
+	}
 	
+	@GetMapping("/department/address/{addr}")
+	public List<Department> getDepartmentByAddress(@PathVariable("addr") String addr) {
+		return departmentService.getDepartmentByAddress(addr);
+	}
+	
+
 }
