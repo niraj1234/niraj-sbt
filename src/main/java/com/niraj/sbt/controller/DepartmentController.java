@@ -2,6 +2,10 @@ package com.niraj.sbt.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niraj.sbt.entity.Department;
+import com.niraj.sbt.error.DepartmentNotFoundException;
+import com.niraj.sbt.error.InvalidRequestParameterException;
 import com.niraj.sbt.service.DepartmentService;
 
 @RestController
@@ -20,8 +26,11 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 	
+	final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
+	
 	@PostMapping("/department")
-	public Department saveDepartment(@RequestBody Department department) {
+	public Department saveDepartment(@Valid @RequestBody Department department) {
+		logger.info("Adding Department ==> " + department);
 		return departmentService.saveDepartment(department);
 	}
 	
@@ -31,7 +40,8 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/department/{id}")
-	public Department getDepartmentById(@PathVariable("id") Long departmentId) {
+	public Department getDepartmentById(@PathVariable("id") Long departmentId) 
+			throws DepartmentNotFoundException {
 		return departmentService.getDepartmentById(departmentId);
 	}
 
@@ -49,7 +59,7 @@ public class DepartmentController {
 	
 	
 	@GetMapping("/department/name/{name}")
-	public Department getDepartmentByName(@PathVariable("name") String name) {
+	public List<Department> getDepartmentByName(@PathVariable("name") String name) throws InvalidRequestParameterException {
 		return departmentService.getDepartmentByName(name);
 	}
 

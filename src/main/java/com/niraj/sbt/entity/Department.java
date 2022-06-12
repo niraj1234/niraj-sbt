@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 
 @Entity
 public class Department {
@@ -11,6 +15,9 @@ public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long departmentId;
+	
+	@NotBlank(message = "Department Name required !")
+	@Length(max = 20 , min = 5 , message = "Department name must be with 5 to 20 characters")
 	private String departmentName;
 	private String departmentAddress;
 	private String departmentCode;

@@ -3,6 +3,8 @@ package com.niraj.sbt.service;
 import java.util.List;
 
 import com.niraj.sbt.entity.Department;
+import com.niraj.sbt.error.DepartmentNotFoundException;
+import com.niraj.sbt.error.InvalidRequestParameterException;
 
 public interface DepartmentService {
 
@@ -10,13 +12,13 @@ public interface DepartmentService {
 
 	List<Department> fetchAllDepartment();
 
-	Department getDepartmentById(Long departmentId);
+	Department getDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
 	void deleteDepartmentById(Long departmentId);
 
 	Department updateDepartmentById(Long departmentId, Department department);
 
-	Department getDepartmentByName(String name);
+	List<Department> getDepartmentByName(String name) throws InvalidRequestParameterException;
 
 	List<Department> getDepartmentByCode(String code);
 

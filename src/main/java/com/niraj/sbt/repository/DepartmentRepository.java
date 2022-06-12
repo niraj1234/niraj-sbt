@@ -12,7 +12,7 @@ import com.niraj.sbt.entity.Department;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
-	public Department findByDepartmentName(String name);
+	public List<Department>  findByDepartmentName(String name);
 	
 	@Query(nativeQuery = true , value = "select * from department where department_code = ?1 " )
 	public List<Department> getDepartmentByCode(String code);

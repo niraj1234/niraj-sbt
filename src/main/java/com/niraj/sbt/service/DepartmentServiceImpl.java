@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.niraj.sbt.entity.Department;
+import com.niraj.sbt.error.DepartmentNotFoundException;
+import com.niraj.sbt.error.InvalidRequestParameterException;
 import com.niraj.sbt.repository.DepartmentRepository;
 
 @Service
@@ -30,8 +32,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	
 	@Override
-	public Department getDepartmentById(Long departmentId) {
-		return departmentRepository.findById(departmentId).get();
+	public Department getDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+//		return departmentRepository.findById(departmentId).get();
+		Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
+		if(!departmentOptional.isPresent()) { throw new DepartmentNotFoundException("Department not found with id "+departmentId);}
+		return departmentOptional.get();
 	}
 
 	
@@ -58,8 +63,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
 	@Override
-	public Department getDepartmentByName(String name) {
-		Department dept = departmentRepository.findByDepartmentName(name);
+	public List<Department> getDepartmentByName(String name) throws InvalidRequestParameterException {
+		boolean deparmentNameValidFlag = false;
+		if(name.equalsIgnoreCase("Electrical") || name.equalsIgnoreCase("Mechanical") || name.equalsIgnoreCase("Civil")
+				|| name.equalsIgnoreCase("Computer")) {
+			deparmentNameValidFlag = true;
+		}
+		
+		if (!deparmentNameValidFlag) {
+            String messageForDeparment = "Engineering Department with name [ "+name+" ] is not available !" ;
+			throw new InvalidRequestParameterException(messageForDeparment);
+		}
+		
+		List<Department> dept = departmentRepository.findByDepartmentName(name);
 		return dept;
 	}
 
