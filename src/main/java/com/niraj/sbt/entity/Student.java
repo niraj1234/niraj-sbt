@@ -1,6 +1,7 @@
 package com.niraj.sbt.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,24 +31,22 @@ public class Student {
 	@Column(name = "email_address" , nullable = false)
 	private String emailId;
 	
-	private String guardianName;
-	private String guardianEmail;
-	private String guardianMobile;
+	@Embedded
+	private Guardian guardian;
 	
+		
 	public Student() {
 		super();
 	}
 
-	public Student(String firstName, String lastName, String emailId, String guardianName, String guardianEmail,
-			String guardianMobile) {
+	public Student(String firstName, String lastName, String emailId, Guardian guardian) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
-		this.guardianName = guardianName;
-		this.guardianEmail = guardianEmail;
-		this.guardianMobile = guardianMobile;
+		this.guardian = guardian;
 	}
+
 
 	public Long getStudentId() {
 		return studentId;
@@ -81,36 +80,20 @@ public class Student {
 		this.emailId = emailId;
 	}
 
-	public String getGuardianName() {
-		return guardianName;
+	public Guardian getGuardian() {
+		return guardian;
 	}
 
-	public void setGuardianName(String guardianName) {
-		this.guardianName = guardianName;
+	public void setGuardian(Guardian guardian) {
+		this.guardian = guardian;
 	}
 
-	public String getGuardianEmail() {
-		return guardianEmail;
-	}
-
-	public void setGuardianEmail(String guardianEmail) {
-		this.guardianEmail = guardianEmail;
-	}
-
-	public String getGuardianMobile() {
-		return guardianMobile;
-	}
-
-	public void setGuardianMobile(String guardianMobile) {
-		this.guardianMobile = guardianMobile;
-	}
 
 	@Override
 	public String toString() {
-		return "Student [studentId=" + studentId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
-				+ emailId + ", guardianName=" + guardianName + ", guardianEmail=" + guardianEmail + ", guardianMobile="
-				+ guardianMobile + "]";
+		return "Student [studentId=" + studentId + ", "
+				+ "firstName=" + firstName + ", lastName=" + lastName + ", "
+				+ "emailId="+ emailId + ", guardian=" + guardian + "]";
 	}
-	
-	
+
 }
