@@ -1,11 +1,17 @@
 package com.niraj.sbt.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -23,9 +29,18 @@ public class Course {
     @OneToOne(mappedBy = "course")
     private CourseMaterial courseMaterial;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id" , referencedColumnName = "teacherId")
     private Teacher teacher;
+    
+    
+    
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinTable( name = "student_course_map" ,
+		joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "courseId"), 
+		inverseJoinColumns = @JoinColumn(name="student_id" , referencedColumnName = "studentId" ) 
+    )
+    private List<Student> students;
     
     public Course(String title, Integer credit, CourseMaterial courseMaterial, Teacher teacher) {
 		super();
@@ -85,10 +100,31 @@ public class Course {
 		this.credit = credit;
 	}
 
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "Course [courseId=" + courseId + ", title=" + title + ", credit=" + credit + ", courseMaterial="
+//				+ courseMaterial + "]";
+//	}
+
+	
+	
+	public void addStudent(Student st) {
+		if(students == null) { students = new ArrayList<Student>();}
+		students.add(st);
+	}
+
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", title=" + title + ", credit=" + credit + ", courseMaterial="
-				+ courseMaterial + "]";
+				+ courseMaterial + ", teacher=" + teacher + ", students=" + students + "]";
 	}
-    
+	
 }

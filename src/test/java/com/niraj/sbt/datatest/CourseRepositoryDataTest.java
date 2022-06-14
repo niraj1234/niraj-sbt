@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.niraj.sbt.entity.Course;
+import com.niraj.sbt.entity.Guardian;
+import com.niraj.sbt.entity.Student;
 import com.niraj.sbt.entity.Teacher;
 import com.niraj.sbt.repository.CourseRepository;
 
@@ -63,7 +65,7 @@ public class CourseRepositoryDataTest {
 
 	}
 	
-	@Test
+//	@Test
 	public void findCourseDataByTitleContaining() {
 		
 		Pageable firstPageNoneRecord = PageRequest.of(0, 9);		
@@ -74,6 +76,34 @@ public class CourseRepositoryDataTest {
 
 	}
 	
+
+//  Many to Many save data	
+//	@Test
+	public void saveCourseWithStudentManyToMany() {
+        Course courseHibernate =  new Course("Hibernate", 22);
+        Teacher techerJim = new Teacher("Jim", "Wilson");
+        Guardian rameshGuardian = new Guardian("ramesh guardian", "ramsshGuard@dodo.com", "7726355344");
+        Student stuB1 = new Student("Ramesh", "Lal", "ramesh@dodo.com", rameshGuardian);
+        Guardian sureshGuardian = new Guardian("suresh guardian", "sureshGuard@dodo.com", "6655445654");
+        Student stuB2 = new Student("Suresh", "Lamba", "suresh@dodo.com", sureshGuardian);
+
+        courseHibernate.setTeacher(techerJim);
+        courseHibernate.addStudent(stuB1);
+        courseHibernate.addStudent(stuB2);
+        
+        cr.save(courseHibernate);
+                
+	}
 	
+	
+	@Test
+	public void getCourseData() {
+		List<Course> courseList = cr.findAll();
+		for (Course c : courseList) {
+			System.out.println("|||  Course Data ManyToMany ||==> " + c);
+		}
+	}
+
+
 }
 
