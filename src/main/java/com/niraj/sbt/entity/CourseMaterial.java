@@ -66,7 +66,7 @@ public class CourseMaterial {
 
 	@Override
 	public String toString() {
-		return "CourseMaterial [courseMaterialId=" + courseMaterialId + ", url=" + url + ", course=" + course + "]";
+		return "CourseMaterial [courseMaterialId=" + courseMaterialId + ", url=" + url + "]";
 	}
 
 

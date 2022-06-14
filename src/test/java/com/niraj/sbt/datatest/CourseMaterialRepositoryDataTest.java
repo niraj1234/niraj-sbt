@@ -19,12 +19,12 @@ public class CourseMaterialRepositoryDataTest {
 	
 //	@Test
 	public void saveCourseMaterial() {
-		Course course = new Course("Spring", 12);
-		CourseMaterial courseMaterial = new CourseMaterial("www.spring.io", course);
+		Course course = new Course("Scala", 3);
+		CourseMaterial courseMaterial = new CourseMaterial("www.scala.io", course);
 		repository.save(courseMaterial);
 	}
 	
-	@Test
+//	@Test
 	public void getAllCourseMaterial() {
 		List<CourseMaterial> courseMaterialList = repository.findAll();
 		for(CourseMaterial cm : courseMaterialList) {
@@ -32,7 +32,7 @@ public class CourseMaterialRepositoryDataTest {
 		}		
 	}
 	
+	
 }
-
 
 

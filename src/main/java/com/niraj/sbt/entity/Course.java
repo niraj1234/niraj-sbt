@@ -1,9 +1,12 @@
 package com.niraj.sbt.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -19,8 +22,36 @@ public class Course {
 	
     @OneToOne(mappedBy = "course")
     private CourseMaterial courseMaterial;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id" , referencedColumnName = "teacherId")
+    private Teacher teacher;
     
-    public Course() {
+    public Course(String title, Integer credit, CourseMaterial courseMaterial, Teacher teacher) {
+		super();
+		this.title = title;
+		this.credit = credit;
+		this.courseMaterial = courseMaterial;
+		this.teacher = teacher;
+	}
+
+	public CourseMaterial getCourseMaterial() {
+		return courseMaterial;
+	}
+
+	public void setCourseMaterial(CourseMaterial courseMaterial) {
+		this.courseMaterial = courseMaterial;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Course() {
 		super();
 	}
 
@@ -56,7 +87,8 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [courseId=" + courseId + ", title=" + title + ", credit=" + credit + "]";
+		return "Course [courseId=" + courseId + ", title=" + title + ", credit=" + credit + ", courseMaterial="
+				+ courseMaterial + "]";
 	}
     
 }
