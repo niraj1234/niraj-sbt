@@ -74,5 +74,11 @@ public class DepartmentController {
 		return departmentService.getDepartmentByAddress(addr);
 	}
 	
+	@GetMapping("/news/{t}")
+	public String newsType(@PathVariable("t") String type) {
+		System.out.println("News Type in Request ==> " + type);
+		return "News Type "+ type;
+	}
+
 
 }
