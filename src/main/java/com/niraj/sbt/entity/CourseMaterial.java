@@ -14,8 +14,8 @@ import javax.persistence.SequenceGenerator;
 public class CourseMaterial {
 
 	@Id
-	@SequenceGenerator(name ="course_material_sequence" , sequenceName = "course_material_sequence" , allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "course_material_sequence")
+	@SequenceGenerator(name ="course_material_sequence", sequenceName = "course_material_sequence" , allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_material_sequence")
 	private Long courseMaterialId;
     private String url;
 
@@ -66,7 +66,8 @@ public class CourseMaterial {
 
 	@Override
 	public String toString() {
-		return "CourseMaterial [courseMaterialId=" + courseMaterialId + ", url=" + url + "]";
+		return "CourseMaterial [courseMaterialId=" + courseMaterialId + ", "
+				+ "url=" + url + "]";
 	}
 
 

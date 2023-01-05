@@ -10,20 +10,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Table( name = "tbl_student", 
-		uniqueConstraints = @UniqueConstraint(
-								columnNames = "email_address", 
-								name = "email_unique")
-)
+@Table( name = "tbl_student", uniqueConstraints = 
+	@UniqueConstraint(columnNames = "email_address", name = "email_unique"))
 @Entity
 public class Student {
 
 	@Id
-	@SequenceGenerator( name = "stu_sequence_generator", 
-						sequenceName = "stu_sequence", 
-						allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
-					generator = "stu_sequence_generator")
+	@SequenceGenerator( name = "stu_sequence_generator", sequenceName = "stu_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stu_sequence_generator")
 	private Long studentId;
 	private String firstName;
 	private String lastName;
@@ -33,8 +27,7 @@ public class Student {
 	
 	@Embedded
 	private Guardian guardian;
-	
-		
+			
 	public Student() {
 		super();
 	}
@@ -87,7 +80,6 @@ public class Student {
 	public void setGuardian(Guardian guardian) {
 		this.guardian = guardian;
 	}
-
 
 	@Override
 	public String toString() {

@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-
 @Entity
 public class Department {
 
@@ -17,7 +16,7 @@ public class Department {
 	private Long departmentId;
 	
 	@NotBlank(message = "Department Name required !")
-	@Length(max = 20 , min = 5 , message = "Department name must be with 5 to 20 characters")
+	@Length(max = 20, min = 5, message = "Department name must be with 5 to 20 characters")
 	private String departmentName;
 	private String departmentAddress;
 	private String departmentCode;
@@ -67,9 +66,9 @@ public class Department {
 
 	@Override
 	public String toString() {
-		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName
-				+ ", departmentAddress=" + departmentAddress + ", departmentCode=" + departmentCode + "]";
-	}
-		
-	
+		return "Department [departmentId=" + departmentId + ", "
+				+ "departmentName=" + departmentName
+				+ ", departmentAddress=" + departmentAddress + ", "
+						+ "departmentCode=" + departmentCode + "]";
+	}			
 }

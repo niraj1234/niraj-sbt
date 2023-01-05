@@ -23,11 +23,15 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
 	Student getStudentByEmailAddress(String emailId);
 
 	//Native SQL Query
-	@Query(value = "select * from tbl_student where email_address = ?1" , nativeQuery = true)
+	@Query(
+			value = "select * from tbl_student where email_address = ?1",
+			nativeQuery = true)
 	Student getStudentByEmailAddressNative(String emailId);
 
 	//Native Named Parameter
-	@Query(value = "select * from tbl_student where email_address = :emailId" , nativeQuery = true)
+	@Query(
+			value = "select * from tbl_student where email_address = :emailId",
+			nativeQuery = true)
 	Student getStudentByEmailAddressNativeNamedParameter(@Param("emailId") String  emailId);
 
 
@@ -39,6 +43,5 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
 			nativeQuery = true
 	)
 	int updateStudentFirstNameByEmailId(String  firstName, String  emailId);
-
 
 }

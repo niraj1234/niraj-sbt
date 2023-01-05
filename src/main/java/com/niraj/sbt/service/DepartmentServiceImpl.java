@@ -49,6 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public Department updateDepartmentById(Long departmentId, Department department) {
 		Department deptInDB = departmentRepository.findById(departmentId).get();
+
 		if (Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(department.getDepartmentName())) {
 			deptInDB.setDepartmentName(department.getDepartmentName());
 		}
@@ -58,6 +59,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		if (Objects.nonNull(department.getDepartmentCode()) && !"".equalsIgnoreCase(department.getDepartmentCode())) {
 			deptInDB.setDepartmentCode(department.getDepartmentCode());
 		}		
+		
 		return departmentRepository.save(deptInDB);
 	}
 
@@ -65,6 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> getDepartmentByName(String name) throws InvalidRequestParameterException {
 		boolean deparmentNameValidFlag = false;
+
 		if(name.equalsIgnoreCase("Electrical") || name.equalsIgnoreCase("Mechanical") || name.equalsIgnoreCase("Civil")
 				|| name.equalsIgnoreCase("Computer")) {
 			deparmentNameValidFlag = true;
@@ -91,7 +94,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> getDepartmentByAddress(String addr) {
 		List<Department> dept = departmentRepository.getDepartmentByAddress(addr);
 		return dept;
-	}
-	
-	
+	}	
+
 }
